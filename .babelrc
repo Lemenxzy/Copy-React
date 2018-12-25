@@ -1,0 +1,8 @@
+{
+  "presets": [
+    "env",
+    "stage-2"
+  ],
+  "comments": false,
+  "plugins": ["transform-react-jsx", "transform-runtime", "transform-export-extensions"]
+}
