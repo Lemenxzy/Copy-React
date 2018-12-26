@@ -1,16 +1,17 @@
 //bable
-// const element = myCreateElement(
-//     "div",{ id: "container" },
-//     myCreateElement("input", { value: "foo", type: "text" }),
-//     myCreateElement(
-//         "a",
-//         { href: "/bar" },
-//         "bar"
+// const ele = Copy.copyCreateElement(
+//     'div',
+//     { id: 'container' },
+//     Copy.copyCreateElement('input', { type: 'text', value: 'foo' }),
+//     Copy.copyCreateElement(
+//         'a',
+//         { href: 'javascript:void(0)', onClick: e => alert("Hi") },
+//         '\u70B9\u6211'
 //     ),
-//     myCreateElement(
-//         "span",
-//         { onClick: e => alert("Hi") },
-//         "click me"
+//     Copy.copyCreateElement(
+//         'span',
+//         null,
+//         '\u54C8\u54C8\u54C8\u54C8\uD83D\uDE01'
 //     )
 // );
 

@@ -6,7 +6,7 @@ function joinPath(dir) {
 
 module.exports = {
     entry: {
-        index: './main.js'
+        index: './example/main.js'
     },
     output: {
         filename: '[name].js',

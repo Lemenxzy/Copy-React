@@ -54,7 +54,12 @@ function copyRender(element, parentDom) {
     //递归,先将对象里的append到div中
     childElements.forEach(childElement => copyRender(childElement, dom));
     //递归结束还会在执行一下这一步，会将div渲染到root中
-    parentDom.appendChild(dom);
+    // Append or replace dom
+    if (!parentDom.lastChild) {
+        parentDom.appendChild(dom);
+    } else {
+        parentDom.replaceChild(dom, parentDom.lastChild);
+    }
 }
 
 export default copyRender;
