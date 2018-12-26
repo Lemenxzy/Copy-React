@@ -23,7 +23,6 @@ function createTextElement(value) {
 }
 
 function copyCreateElement(type, config, ...arg) {
-    console.log(arg);
     const props = Object.assign({}, config);
     const hasChildren = arg.length > 0;
     const rawChildren = hasChildren ? [].concat(...arg) : [];
