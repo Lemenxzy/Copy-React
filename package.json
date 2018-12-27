@@ -1,11 +1,13 @@
 {
-  "name": "copyReact",
+  "name": "CopyReact",
   "version": "1.0.0",
-  "description": "copyReact",
-  "main": "Myreact.js",
+  "description": "a copy react project",
+  "main": "dist/Copy.js",
   "repository": "",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --open --port 8000 --config build/webpack.dev.config.js"
+    "dev": "NODE_ENV=development webpack-dev-server --open --port 8000 --config build/webpack.dev.config.js",
+    "build:compressed": "NODE_ENV=production webpack --progress --hide-modules --config build/webpack.prod.config.js",
+    "build": "rm -rf dist && babel src --out-dir dist"
   },
   "author": "",
   "license": "ISC",

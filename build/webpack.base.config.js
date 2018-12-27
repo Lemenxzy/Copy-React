@@ -5,9 +5,6 @@ function joinPath(dir) {
 }
 
 module.exports = {
-    entry: {
-        index: './example/main.js'
-    },
     output: {
         filename: '[name].js',
         library: 'copyReact',

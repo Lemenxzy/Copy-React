@@ -5,6 +5,9 @@ const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
 
 const prodConfig = merge(baseConfig, {
+    entry: {
+        index: './src/Copy.js'
+    },
     devtool: 'source-map',
     mode: 'production'
     // 设置了 mode 会自动启用这些优化插件
