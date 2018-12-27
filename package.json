@@ -5,9 +5,7 @@
   "main": "Myreact.js",
   "repository": "",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --open --port 8000 --config build/webpack.dev.config.js",
-    "build:compressed": "NODE_ENV=production webpack --progress --hide-modules --config build/webpack.prod.config.js",
-    "build": "rm -rf dist && babel src --out-dir dist"
+    "dev": "NODE_ENV=development webpack-dev-server --open --port 8000 --config build/webpack.dev.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +17,7 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-copy": "^1.0.0",
+    "babel-preset-copy": "^1.0.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^1.0.0",
