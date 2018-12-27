@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
-const entry = { index: './example/main.js' };
+const entry = { index: './example/main.copy' };
 
 const devConfig = merge(baseConfig, {
     entry,

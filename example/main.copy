@@ -1,0 +1,4 @@
+import Copy, { CopyRender } from '../src/Copy';
+import Demo from './index.copy'
+
+CopyRender(<Demo />, document.getElementById('root'));

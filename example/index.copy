@@ -1,24 +1,28 @@
-import Copy from '../src/Copy';
-import copyRender from '../src/copyRender';
+import Copy, {CopyComponent} from '../src/Copy'
 
-const rootDom = document.getElementById("root");
+class Demo extends CopyComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            num: 1
+        };
+    }
 
-function tick() {
-    const time = new Date().toLocaleTimeString();
-    const clockElement = <h1>{time}</h1>;
-    copyRender(clockElement, rootDom);
+    handle = () => {
+        this.setState({
+            num: this.state.num + 1
+        })
+    };
+
+    render() {
+        return (
+            <div id='container'>
+                <input type='text' value='foo' />
+                <a href="javascript:void(0)" onClick={this.handle}>点我加一</a>
+                <span>数字😁： {this.state.num}</span>
+            </div>
+        )
+    }
 }
 
-tick();
-
-export default tick;
-
-
-// const ele = <div id='container'>
-//     <input type='text' value='foo' />
-//     <a href="javascript:void(0)" onClick={e => alert("Hi")}>点我</a>
-//     <span>哈哈哈哈😁</span>
-// </div>;
-//
-// export default ele;
-
+export default Demo;

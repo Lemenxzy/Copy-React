@@ -32,7 +32,16 @@ const element = {
 
 let rootInstance = null;
 
-function copyRender(element, container) {
+
+function createPublicInstance(element, internalInstance) {
+    const { type, props } = element;
+    const publicInstance = new type(props);
+    publicInstance.__internalInstance = internalInstance;
+    console.log(111, publicInstance);
+    return publicInstance;
+}
+
+function CopyRender(element, container) {
     const prevInstance = rootInstance;
     const nextInstance = reconcile(container, prevInstance, element);
     rootInstance = nextInstance;//{"dom":{},"element":{"type":"h1","props":{"children":[{"type":"TEXT ELEMENT","props":{"nodeValue":"下午3:08:57","children":[]}}]}},"childInstances":[{"dom":{},"element":{"type":"TEXT ELEMENT","props":{"nodeValue":"下午3:08:57","children":[]}},"childInstances":[]}]}
@@ -48,16 +57,33 @@ function reconcile(parentDom, instance, element) {
         // Remove instance
         parentDom.removeChild(instance.dom);
         return null;
-    } else if (instance.element.type === element.type) {
-        // Update instance
+    } else if (instance.element.type !== element.type) {
+        // Replace instance
+        const newInstance = instantiate(element);
+        parentDom.replaceChild(newInstance.dom, instance.dom);
+        return newInstance;
+
+    } else if (typeof element.type === "string") {
+        // Update dom instance
         updateDomProperties(instance.dom, instance.element.props, element.props);
         instance.childInstances = reconcileChildren(instance, element);
         instance.element = element;
         return instance;
-    }else {
-        const newInstance = instantiate(element);
-        parentDom.replaceChild(newInstance.dom, instance.dom);
-        return newInstance;
+    } else {
+        //Update composite instance
+        instance.publicInstance.props = element.props;
+        const childElement = instance.publicInstance.render();
+        const oldChildInstance = instance.childInstance;
+        console.log(childElement, '-------', oldChildInstance);
+        const childInstance = reconcile(
+            parentDom,
+            oldChildInstance,
+            childElement
+        );
+        instance.dom = childInstance.dom;
+        instance.childInstance = childInstance;
+        instance.element = element;
+        return instance;
     }
 }
 
@@ -79,22 +105,43 @@ function reconcileChildren(instance, element) {
 
 function instantiate(element) {
     const { type, props } = element;
+    const isDomElement = typeof type === "string";
+    if (isDomElement) {
+        //判断是不是 text 节点
+        const isTextElement = type === "TEXT ELEMENT";
+        const dom = isTextElement ? document.createTextNode("") : document.createElement(type);
 
-    //判断是不是 text 节点
-    const isTextElement = type === "TEXT ELEMENT";
-    const dom = isTextElement ? document.createTextNode("") : document.createElement(type);
+        updateDomProperties(dom, [], props);
 
-    updateDomProperties(dom, [], props);
+        // Instantiate and append children
+        const childElements = props.children || [];
+        //递归
+        const childInstances = childElements.map(instantiate);
+        const childDoms = childInstances.map(childInstance => childInstance.dom);
+        childDoms.forEach(childDom => dom.appendChild(childDom));
 
-    // Instantiate and append children
-    const childElements = props.children || [];
-    //递归
-    const childInstances = childElements.map(instantiate);
-    const childDoms = childInstances.map(childInstance => childInstance.dom);
-    childDoms.forEach(childDom => dom.appendChild(childDom));
+        const instance = { dom, element, childInstances };
+        return instance;
+    } else {
+        // Instantiate component element
+        // 初始化 组件 <App />
+        const instance = {};
 
-    const instance = { dom, element, childInstances };
-    return instance;
+        // createPublicInstance
+        // 1. 新建 newApp = new App()
+        // 2. newApp.__internalInstance = instance
+        // 3. publicInstance = newApp
+        const publicInstance = createPublicInstance(element, instance);
+        //
+        const childElement = publicInstance.render(); // 自己定义的 渲染-render-函数
+
+        const childInstance = instantiate(childElement); // 递归 孩子拿到 { dom, element, childInstances }
+        const dom = childInstance.dom;
+
+        Object.assign(instance, { dom, element, childInstance, publicInstance }); // >> 组件元素比Didact元素 多了本身- 实例
+        return instance;
+    }
+
 }
 
 function updateDomProperties(dom, prevProps, nextProps) {
@@ -125,4 +172,5 @@ function updateDomProperties(dom, prevProps, nextProps) {
 }
 
 
-export default copyRender;
+export default CopyRender;
+export const Reconcile = reconcile;
