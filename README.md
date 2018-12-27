@@ -12,12 +12,58 @@ Study react and copy it
 
 want to learn principle for react...
 
-## Use
+## install
 
 ```npm
-npm i
+npm i copy-react --save
 ```
 
-```npm
-npm run dev
+## use
+
+main.copy
+
+```jsx
+import Copy, {CopyComponent} from 'copy-react'
+
+class Demo extends CopyComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            num: 1
+        };
+    }
+
+    handle = () => {
+        this.setState({
+            num: this.state.num + 1
+        })
+    };
+
+    render() {
+        return (
+            <div id='container'>
+                <input type='text' value='foo' />
+                <a href="javascript:void(0)" onClick={this.handle}>点我加一</a>
+                <span>数字😁： {this.state.num}</span>
+            </div>
+        )
+    }
+}
+
+export default Demo;
+
 ```
+
+index.copy
+
+```jsx
+import Copy, { CopyRender } from 'copy-react';
+import Demo from './index.copy'
+
+CopyRender(<Demo />, document.getElementById('root'));
+
+```
+
+## example
+
+link: [https://github.com/Lemenxzy/Copy-React](https://github.com/Lemenxzy/Copy-React)
