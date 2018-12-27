@@ -64,6 +64,12 @@ CopyRender(<Demo />, document.getElementById('root'));
 
 ```
 
+## note
+
+Compile .copy
+
+link: [https://www.npmjs.com/package/babel-preset-copy](https://www.npmjs.com/package/babel-preset-copy)
+
 ## example
 
 link: [https://github.com/Lemenxzy/Copy-React](https://github.com/Lemenxzy/Copy-React)

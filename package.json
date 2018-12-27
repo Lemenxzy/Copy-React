@@ -1,12 +1,12 @@
 {
   "name": "copy-react",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a copy react project",
   "main": "dist/Copy.js",
   "repository": "",
   "scripts": {
-    "dev": "NODE_ENV=development webpack-dev-server --open --port 8000 --config build/webpack.dev.config.js",
-    "build:compressed": "NODE_ENV=production webpack --progress --hide-modules --config build/webpack.prod.config.js",
+    "dev": "webpack-dev-server NODE_ENV=development --open --port 8000 --config build/webpack.dev.config.js",
+    "build:compressed": "webpack NODE_ENV=production --progress --hide-modules --config build/webpack.prod.config.js",
     "build": "rm -rf dist && babel src --out-dir dist"
   },
   "homepage": "https://github.com/Lemenxzy/Copy-React",
